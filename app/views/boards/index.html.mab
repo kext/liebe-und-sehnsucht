@@ -1,0 +1,34 @@
+if @boards.count > 0
+  ul.overview do
+    @boards.each do |board|
+      li do
+        if board.post_count > 0
+          div.r do
+            p do
+              a t(:newest_post), href: topic_lastpage_path(board.last_post.topic_id, format: 'html')
+              br
+              b {a board.last_post.topic.title, href: topic_path(board.last_post.topic_id, format: 'html')}
+              br
+              a board.last_post.user.name, href: user_path(board.last_post.user.id, format: 'html')
+              text ", #{board.last_post.created_at.localtime.relative}."
+            end
+          end
+        end
+        h3 {a board.title, href: board_path(board, format: 'html')}
+        if board.post_count > 0
+          p do
+            text "#{board.topic_count} "
+            text board.topic_count > 1 ? t(:topics) : t(:topic)
+            br
+            text "#{board.post_count} "
+            text board.post_count > 1 ? t(:posts) : t(:post)
+          end
+        else
+          p t(:no_posts)
+        end
+      end
+    end
+  end
+else
+  p.empty t(:no_posts)
+end

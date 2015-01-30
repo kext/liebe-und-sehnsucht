@@ -1,0 +1,19 @@
+text! render('pagination')
+ul.overview.b do
+  @posts.each do |post|
+    li do
+      p do
+        a post.user.name, href: user_path(post.user.id, format: 'html')
+        text ", #{post.created_at.localtime.relative}"
+      end
+      p post.content
+    end
+  end
+end
+text! render('pagination')
+h3 t(:answer)
+form method: 'post', action: topic_path(@topic.id, @page, format: 'html') do
+  input type: 'hidden', name: 'authenticity_token', value: form_authenticity_token
+  textarea name: 'content', value: params[:content]
+  p.r {input.button type: 'submit', value: t(:answer)}
+end

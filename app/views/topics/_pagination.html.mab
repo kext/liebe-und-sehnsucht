@@ -1,0 +1,21 @@
+p do
+  pages = paginate @page, @num_pages
+  s = false
+  text "#{t(:pages)}: "
+  pages.each{|i|
+    text ' ' if s
+    s = true
+    case i
+    when :prev
+      a '«', href: topic_path(@topic.id, @page - 1, format: 'html')
+    when :next
+      a '»', href: topic_path(@topic.id, @page + 1, format: 'html')
+    when :skip
+      '…'
+    when @page
+      b {a i.to_s, href: topic_path(@topic.id, i, format: 'html')}
+    else
+      a i.to_s, href: topic_path(@topic.id, i, format: 'html')
+    end
+  }
+end

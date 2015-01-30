@@ -1,0 +1,26 @@
+p do
+  a t(:create_new_topic), href: new_topic_path(@board.id, format: 'html')
+end
+if @topics.count > 0
+  ul.overview do
+    @topics.each do |topic|
+      li do
+        div.r do
+          p do
+            a t(:newest_post), href: topic_lastpage_path(topic.id, format: 'html')
+            br
+            a topic.last_post_user.name, href: user_path(topic.last_post_user.id, format: 'html')
+            text ", #{topic.last_post_at.localtime.relative}."
+          end
+        end
+        h3 {a topic.title, href: topic_path(topic.id, format: 'html')}
+        p do
+          a topic.first_post_user.name, href: user_path(topic.first_post_user.id, format: 'html')
+          text ", #{topic.first_post_at.localtime.relative} — #{topic.post_count} #{topic.post_count > 1 ? t(:posts) : t(:post)}. "
+        end
+      end
+    end
+  end
+else
+  p.empty t(:no_topics)
+end

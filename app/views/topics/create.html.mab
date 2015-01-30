@@ -1,0 +1,8 @@
+form method: 'post', action: new_topic_path(@board.id, format: 'html') do
+  input type: 'hidden', name: 'authenticity_token', value: form_authenticity_token
+  input.title type: 'text', name: 'title', placeholder: t(:placeholder_title), value: params[:title]
+  textarea name: 'content' do
+    text params[:content] if params[:content]
+  end
+  p.r {input.button type: 'submit', value: t(:create_new_topic)}
+end

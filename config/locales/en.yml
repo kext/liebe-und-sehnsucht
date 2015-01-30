@@ -1,0 +1,12 @@
+en:
+  title: 'Forum'
+  topic: 'Topic'
+  new_topic: 'New topic'
+  create_new_topic: 'Create new topic'
+  no_topics: 'There are no topics.'
+  no_posts: 'There are no posts.'
+  board_overview: 'Board Overview'
+  placeholder_title: 'Title'
+  startpage: 'Startpage'
+  settings: 'Settings'
+  tagline: 'Powered by <a href="https://github.com/kext">@kext</a>.'

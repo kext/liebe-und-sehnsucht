@@ -1,0 +1,9 @@
+h3 t(:change_password)
+form.c method: 'post', action: settings_path do
+  input type: 'hidden', name: 'authenticity_token', value: form_authenticity_token
+  input type: 'hidden', name: 'do', value: 'change_password'
+  input type: 'password', name: 'old_password', placeholder: t(:old_password)
+  input type: 'password', name: 'password', placeholder: t(:password)
+  input type: 'password', name: 'password_confirmation', placeholder: t(:password_confirmation)
+  input.button type: 'submit', value: t(:change_password)
+end

@@ -1,0 +1,49 @@
+doctype!
+html do
+  head do
+    meta charset: 'utf-8'
+    title @stack ? "#{@stack.map{|s| s[:title]}.reverse.join(' - ')} - #{t(:title)}" : t(:title)
+    link rel: 'stylesheet', type: 'text/css', href: asset_path('application.css')
+  end
+  body do
+    div.header do
+      h1 {a t(:title), href: root_path}
+      ul.nav do
+        li {a t(:startpage), href: root_path}
+        if @user
+          li.r {a t(:logout), href: logout_path(format: 'html')}
+          li.r {a t(:settings), href: settings_path(format: 'html')}
+          li.r do
+            span do
+              text "Hallo "
+              b @user.name
+              text '!'
+            end
+          end
+        else
+          li.r {a t(:login), href: login_path(format: 'html')}
+        end
+      end
+    end
+    div.content do
+      p.breadcrumbs do
+        a t(:title), href: root_path
+        @stack.each do |s|
+          text t(:breadcrumbs)
+          a s[:title], href: s[:url]
+        end if @stack
+      end
+      h2 @stack[-1][:title] if @stack
+      @errors.each do |e|
+        p.error e
+      end if @errors
+      @infos.each do |i|
+        p.info i
+      end if @infos
+      text! yield
+    end
+    div.footer do
+      div {t(:tagline)}
+    end
+  end
+end
